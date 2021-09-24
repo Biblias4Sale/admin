@@ -32,8 +32,10 @@ const SettingsNotifications = () => {
 
   useEffect(() => {
     dispatch(getConfigs())
-    setOptions({ ...options, configs })
-  }, [dispatch, configs])
+    setOptions(configs)
+    console.log(configs)
+    console.log('config')
+  }, [dispatch])
 
   const handleChange = (event) => {
     setOptions({ ...options, [event.target.name]: event.target.checked })
@@ -55,6 +57,7 @@ const SettingsNotifications = () => {
             container
             spacing={6}
             wrap='wrap'
+            style={{justifyContent:'center'}}
           >
             <Grid
               item
@@ -132,7 +135,7 @@ const SettingsNotifications = () => {
                   label='Pedido entregado'
                 />
                 <FormControlLabel
-                  control={<Switch checked={options.smsCanceled} onChange={handleChange} name='smsCanceled' />}
+                  control={<Switch checked={options.smsCanceled} value={options.smsCanceled} onChange={handleChange} name='smsCanceled' />}
                   label='Pedido cancelado'
                 />
               </FormGroup>

@@ -1,8 +1,8 @@
 import { GET_PAYMENTS, GET_PAYMENT_ID } from '../constants'
 
 const initialState = {
-  allPayments: [],
-  paymentByID: []
+  paymentsData: []
+
 }
 
 const payments = (state = initialState, action) => {
@@ -10,7 +10,7 @@ const payments = (state = initialState, action) => {
     case GET_PAYMENTS:
       return {
         ...state,
-        allPayments: action.payload
+        paymentsData: action.payload
       }
     case GET_PAYMENT_ID:
       return {

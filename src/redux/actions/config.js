@@ -9,10 +9,10 @@ export const setConfigs = (options) => async (dispatch) => {
   const newConfig = await axios.post(`${ApiURL}/configureMarketing`, options, { withCredentials: true })
   if (newConfig) {
     const getNewConfig = await axios.get(`${ApiURL}/configureMarketing`)
-    console.log(getNewConfig)
+    console.log(getNewConfig.data)
     return dispatch({
       type: SET_NOTIFICATIONS_CONFIG,
-      payload: getNewConfig.data
+      payload: getNewConfig.data.data
     })
   }
 }
@@ -20,6 +20,7 @@ export const setConfigs = (options) => async (dispatch) => {
 export const getConfigs = () => async (dispatch) => {
   const getNewConfig = await axios.get(`${ApiURL}/configureMarketing`)
   if (getNewConfig) {
+    console.log(getNewConfig.data)
     return dispatch({
       type: GET_NOTIFICATIONS_CONFIG,
       payload: getNewConfig.data

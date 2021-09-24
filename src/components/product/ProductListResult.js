@@ -1,4 +1,6 @@
 import PerfectScrollbar from 'react-perfect-scrollbar'
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 
 import {
   Avatar,
@@ -20,7 +22,8 @@ const ProductListResults = ({ dispatch, allProducts, eventHandler, setEventHandl
   const [selectedProductIds, setSelectedProductIds] = useState([])
   const [page, setPage] = useState(0)
   const [products, setProducts] = useState([])
-  const [limit, setLimit] = useState(10)
+  const [limit, setLimit] = useState(50)
+
 
   if (!selectedProductIds.length && selectedProductIds !== eventHandler.selectedProducts) {
     setEventHandler({ ...eventHandler, deleteProductsBtn: false, selectedProducts: selectedProductIds })
@@ -35,7 +38,13 @@ const ProductListResults = ({ dispatch, allProducts, eventHandler, setEventHandl
   }, [eventHandler.deleteProductsBtn])
 
   useEffect(() => {
-    setProducts(allProducts.filter(products => products.state))
+    setProducts(allProducts
+      .sort((a, b) => {
+        if (a.brand < b.brand) { return -1 }
+        if (a.brand > b.brand) { return 1 }
+        return 0
+      })
+      .filter(products => products.state))
   }, [allProducts])
 
   const handleSelectAll = (event) => {
@@ -129,7 +138,6 @@ const ProductListResults = ({ dispatch, allProducts, eventHandler, setEventHandl
                     value='desc'
                   >
                     Modelo
-
                   </Button>
                 </TableCell>
                 <TableCell>
@@ -175,7 +183,7 @@ const ProductListResults = ({ dispatch, allProducts, eventHandler, setEventHandl
               </TableRow>
             </TableHead>
             <TableBody>
-              {products.sort().slice(page, page + limit).map((product) => (
+              {products.slice(page, page + limit).map((product) => (
                 <TableRow
                   hover
                   key={product.id}

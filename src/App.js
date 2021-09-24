@@ -11,6 +11,10 @@ import { getUsers } from './redux/actions/user'
 import { getAllBrands } from './redux/actions/brands'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+
+import { getConfigs } from './redux/actions/config'
+
+
 const App = () => {
   const content = useRoutes(routes)
   const [init, setInit] = useState(true)
@@ -21,6 +25,7 @@ const App = () => {
     dispatch(getProducts())
     dispatch(getUsers())
     dispatch(getAllBrands())
+    dispatch(getConfigs())
     setInit(false)
   }, [init])
 

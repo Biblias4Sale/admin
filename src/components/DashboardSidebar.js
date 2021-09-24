@@ -87,8 +87,8 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           <NavItem
             href='/app/dashboard'
             key='Dashboard'
-            title='Dashboard'
-            icon={BarChartIcon}
+            title='Pagos'
+            icon={Dollar}
           />
 
           <NavItem
@@ -110,12 +110,6 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
             key='Productos'
             title='Productos'
             icon={ShoppingBagIcon}
-          />
-          <NavItem
-            href='/app/payments'
-            key='Pagos'
-            title='Pagos'
-            icon={Dollar}
           />
           <NavItem
             href='/app/account'
