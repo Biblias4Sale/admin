@@ -18,7 +18,7 @@ const AdminList = () => {
 
     <>
       <Helmet>
-        <title>Admins | Material Kit</title>
+        <title>Noiloan | Admin</title>
       </Helmet>
       <Box
         sx={{

@@ -5,7 +5,7 @@ import {
   CardContent,
   Typography
 } from '@material-ui/core'
-import StarIcon from '@material-ui/icons/Star'
+// import StarIcon from '@material-ui/icons/Star'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import { makeStyles } from '@material-ui/styles'
 
@@ -24,12 +24,13 @@ const useStyles = makeStyles({
 })
 
 const ProductPreview = ({ product }) => {
+  console.log('product', product)
   const classes = useStyles()
   const stars = []
 
-  for (let i = 0; i < product.points; i++) {
-    stars.push(<StarIcon key={i} />)
-  }
+  // for (let i = 0; i < product.rating; i++) {
+  //   stars.push(<StarIcon key={i} />)
+  // }
 
   return (
     <Card className={classes.root}>

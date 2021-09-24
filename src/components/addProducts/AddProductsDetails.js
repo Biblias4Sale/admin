@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { getSubCategoriesOf } from '../../redux/actions/categories'
 import { addProducts } from '../../redux/actions/products'
 import FileUploader from '../../Tools/FileUploader'
-
 import {
   Box,
   Button,
@@ -15,6 +14,8 @@ import {
   ImageList,
   ImageListItem
 } from '@material-ui/core'
+import FormHelperText from '@material-ui/core/FormHelperText'
+import { validate } from './formValidate.js'
 
 const AddPorductsDetails = ({
   dispatch,
@@ -35,24 +36,35 @@ const AddPorductsDetails = ({
   const [localUrl, setLocalUrl] = useState([])
   const [flag, setFlag] = useState(0)
   const [key, setKey] = useState(0)
+  const [errors, setErrors] = useState({})
+
   useEffect(() => {
     if (imageUrl !== []) {
       setLocalUrl(imageUrl)
     }
   }, [imageUrl])
-
   useEffect(() => {
     if (flag === 1) {
       setProductInfo({ ...productInfo, img: encodedImgs })
       setFlag(2)
     }
     if (flag === 2 &&
-      productInfo.category !== '-' &&
+      (productInfo.category !== '-') &&
       productInfo.subCategory !== '-' &&
-      productInfo.brand !== '-') {
+      productInfo.brand !== '-' &&
+      productInfo.model !== '' &&
+      productInfo.price !== '' &&
+      productInfo.description !== '' &&
+      productInfo.img.length !== 0 &&
+      productInfo.stock !== ''
+    ) {
+      setErrors(null)
       dispatch(addProducts(productInfo))
       setFlag(3)
+    } else {
+      if (productInfo.img.length === 0) setErrors((prev) => ({ ...prev, img: 'Por favor carga una imagen' }))
     }
+
     if (flag === 3) {
       setKey(key + 1)
       setProductInfo({
@@ -70,15 +82,14 @@ const AddPorductsDetails = ({
       setImageUrl([])
       setFlag(0)
     }
-    console.log(encodedImgs, ' en details')
   }, [flag, encodedImgs])
-
   const handleChange = (event) => {
+    validate(event.target.value, event.target.name, setErrors)
+
     setProductInfo({
       ...productInfo,
       [event.target.name]: event.target.value
     })
-    console.log(productInfo)
   }
 
   useEffect(() => {
@@ -122,6 +133,7 @@ const AddPorductsDetails = ({
                 md={6}
                 xs={12}
               >
+
                 <TextField
                   fullWidth
                   label='Marca'
@@ -133,7 +145,7 @@ const AddPorductsDetails = ({
                   value={productInfo.brand}
                   variant='outlined'
                 >
-                  <option key='0' value='-'>Sleccione una marca</option>
+                  <option key='0' value='-'>Seleccione una marca</option>
                   {allBrands && allBrands.sort().map((brand) => (
                     <option
                       key={brand.id}
@@ -143,6 +155,11 @@ const AddPorductsDetails = ({
                     </option>
                   ))}
                 </TextField>
+
+                {errors.brand
+                  ? <FormHelperText style={{ color: 'red' }}> {errors.brand} </FormHelperText>
+                  : null}
+
               </Grid>
               <Grid
                 item
@@ -159,6 +176,11 @@ const AddPorductsDetails = ({
                   value={productInfo.model}
                   variant='outlined'
                 />
+
+                {errors.model
+                  ? <FormHelperText style={{ color: 'red' }}> {errors.model} </FormHelperText>
+                  : null}
+
               </Grid>
               <Grid
                 item
@@ -176,7 +198,7 @@ const AddPorductsDetails = ({
                   value={productInfo.category}
                   variant='outlined'
                 >
-                  <option key='0' value='-'>Sleccione una categoria</option>
+                  <option key='0' value='-'>Seleccione una categoria</option>
                   {allCategories && allCategories.sort().map((category, index) => (
                     <option
                       key={index}
@@ -186,6 +208,10 @@ const AddPorductsDetails = ({
                     </option>
                   ))}
                 </TextField>
+                {errors.category
+                  ? <FormHelperText style={{ color: 'red' }}> {errors.category} </FormHelperText>
+                  : null}
+
               </Grid>
               <Grid
                 item
@@ -203,7 +229,7 @@ const AddPorductsDetails = ({
                   value={productInfo.subCategory}
                   variant='outlined'
                 >
-                  <option key='0' value='-'>Sleccione una categoria</option>
+                  <option key='0' value='-'>Seleccione una Subcategoria</option>
                   {subCategoriesOf && subCategoriesOf.sort().map((subCat, index) => (
                     <option
                       key={index}
@@ -213,6 +239,11 @@ const AddPorductsDetails = ({
                     </option>
                   ))}
                 </TextField>
+
+                {errors.subCategory
+                  ? <FormHelperText style={{ color: 'red' }}> {errors.subCategory} </FormHelperText>
+                  : null}
+
               </Grid>
               <Grid
                 item
@@ -223,11 +254,18 @@ const AddPorductsDetails = ({
                   fullWidth
                   label='Precio'
                   name='price'
+                  // InputProps={{ inputProps: { min: 0, max: 1000000 } }}
+                  // type='number'
                   onChange={handleChange}
                   required
                   value={productInfo.price}
                   variant='outlined'
                 />
+
+                {errors.price
+                  ? <FormHelperText style={{ color: 'red' }}> {errors.price} </FormHelperText>
+                  : null}
+
               </Grid>
               <Grid
                 item
@@ -243,6 +281,10 @@ const AddPorductsDetails = ({
                   value={productInfo.stock}
                   variant='outlined'
                 />
+                {errors.stock
+                  ? <FormHelperText style={{ color: 'red' }}> {errors.stock} </FormHelperText>
+                  : null}
+
               </Grid>
 
               <Grid
@@ -261,6 +303,9 @@ const AddPorductsDetails = ({
                   variant='outlined'
 
                 />
+                {errors.description
+                  ? <FormHelperText style={{ color: 'red' }}> {errors.description} </FormHelperText>
+                  : null}
               </Grid>
 
               <Grid
@@ -280,12 +325,12 @@ const AddPorductsDetails = ({
 
                     {(localUrl && localUrl)
                       ? (localUrl.map((local, index) => (
-                        <ImageListItem>
+                        <ImageListItem key={index}>
                           <img
                             style={{
-                            width: '100px',
-                            height: '100px'
-                          }}
+                              width: '100px',
+                              height: '100px'
+                            }}
                             src={local}
                             onClick={(e) => catchImgId(e)}
                             id={index}
@@ -321,13 +366,25 @@ const AddPorductsDetails = ({
               encodedImgs={encodedImgs}
               setEncodedImgs={setEncodedImgs}
             />
-            <Button
-              color='primary'
-              variant='contained'
-              type='submit'
-            >
-              Guardar producto
-            </Button>
+            {!errors.brand && !errors.model && !errors.price && !errors.description && !errors.stock && !errors.category && !errors.subCategory && productInfo.brand && productInfo.model && productInfo.price && productInfo.description && productInfo.stock && productInfo.category && productInfo.subCategory
+              ? (
+                <Button
+                  color='primary'
+                  variant='contained'
+                  type='submit'
+                >
+                  Guardar producto
+                </Button>
+                )
+              : (
+                <Button
+                  color='primary'
+                  variant='contained'
+                  disabled
+                >
+                  Guardar producto
+                </Button>
+                )}
           </Box>
         </Card>
       </form>

@@ -35,18 +35,15 @@ const ProductPreview = ({
 
   const stars = []
 
-
   useEffect(() => {
     if (imageUrl !== '') {
       setLocalUrl(imageUrl[imgPreview])
-      console.log(localUrl, ' en preview')
     }
-    console.log(localUrl, imageUrl, '         este es local url en preview')
   }, [imageUrl, imgPreview])
 
   useEffect(() => {
     console.log(productInfo)
-  },[productInfo])
+  }, [productInfo])
 
   return (
     <Card className={classes.root}>
@@ -57,16 +54,16 @@ const ProductPreview = ({
           title='product.model'
         />
         <CardContent className={classes.content}>
-        {
-        (productInfo && productInfo !== undefined) 
-         ? (
+          {
+        (productInfo && productInfo !== undefined)
+          ? (
             <Typography gutterBottom variant='h4' component='h2'>
-              {productInfo.brand}<br/>
+              {productInfo.brand}<br />
               {productInfo.model}
-              </Typography>
-            ) 
+            </Typography>
+            )
           : ''
-          }	
+          }
           <Typography variant='h4' component='h2'>
             {'$' + new Intl.NumberFormat('es-ES').format(productInfo.price)}
           </Typography>
@@ -75,10 +72,10 @@ const ProductPreview = ({
             marginTop: '15px'
           }}
           >
-            <StarIcon/>
-            <StarIcon/>
-            <StarIcon/>
-            <StarIcon/>
+            <StarIcon />
+            <StarIcon />
+            <StarIcon />
+            <StarIcon />
           </div>
           <div style={{
             display: 'flex',

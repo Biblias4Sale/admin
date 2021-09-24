@@ -13,7 +13,6 @@ import { useEffect, useState } from 'react'
 
 const Budget = () => {
   const products = useSelector(store => store.products.allProducts)
-  console.log('product', products)
   const [stock, setStocks] = useState(0)
 
   useEffect(() => {

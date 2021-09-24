@@ -21,7 +21,6 @@ const Test = () => {
       quantity: 2
     }
     const respose = await axios.post('http://localhost:3002/api/v1/mercadopago', newProduct, { withCredentials: true })
-    console.log('RESPOSE', respose)
     window.open(respose.data, '_blank')
   }
 

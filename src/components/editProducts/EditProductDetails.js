@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Box,
   Button,
@@ -16,30 +16,44 @@ import { editProducts } from 'src/redux/actions/products'
 const EditProductsDetails = ({
   productDetails,
   allCategories,
+  allBrands,
   dispatch,
   productInfo,
   setProductInfo,
   subCategoriesOf
 }) => {
   const ranking = [1, 2, 3, 4, 5]
+  const [selectedCategory, setSelectedCategory] = useState('')
+  const [selectedSubCategory, setSelectedSubCategory] = useState('')
 
-  useEffect(async () => {
-    await setProductInfo(productDetails)
-    await dispatch(getSubCategoriesOf(productDetails.category))
+  useEffect(() => {
+    setProductInfo(productDetails)
+    setSelectedCategory(productDetails.category)
+    setSelectedSubCategory(productDetails.subCategory)
   }, [productDetails])
 
+  useEffect(() => {
+    dispatch(getSubCategoriesOf(selectedCategory))
+      .then(res => setSelectedSubCategory(res.payload))
+  }, [selectedCategory])
+
   const handleChange = (event) => {
-    dispatch(getSubCategoriesOf(productInfo.category))
     setProductInfo({
       ...productInfo,
       [event.target.name]: event.target.value
     })
+    if (event.target.name === 'category') {
+      setSelectedCategory(event.target.value)
+    }
+    if (event.target.name === 'subCategory') {
+      setSelectedSubCategory(event.target.value)
+    }
   }
 
   return (
     <>
       {
-      !productInfo.subCategory || !productDetails || !subCategoriesOf.length
+      !productDetails || !selectedSubCategory
         ? <CircularProgress />
         : (
           <form
@@ -68,14 +82,17 @@ const EditProductsDetails = ({
                       name='brand'
                       onChange={handleChange}
                       select
-                      value=''
+                      SelectProps={{ native: true }}
+                      value={productInfo.brand}
                     >
-                      <option
-                          // key={option}
-                        value='MARCAS'
-                      >
-                        POSIBLES MARCAS
-                      </option>
+                      {allBrands.map(option => (
+                        <option
+                          key={option.name}
+                          value={option.name}
+                        >
+                          {option.name}
+                        </option>
+                      ))}
                     </TextField>
                   </Grid>
                   <Grid
@@ -102,7 +119,7 @@ const EditProductsDetails = ({
                       name='category'
                       onChange={handleChange}
                       select
-                      value={productInfo.category}
+                      value={selectedCategory}
                       SelectProps={{ native: true }}
                     >
                       {allCategories.map(option => (
@@ -126,7 +143,7 @@ const EditProductsDetails = ({
                       name='subCategory'
                       onChange={handleChange}
                       select
-                      value={productInfo.subCategory}
+                      value={selectedSubCategory}
                       SelectProps={{ native: true }}
                     >
                       {subCategoriesOf.map(option => (

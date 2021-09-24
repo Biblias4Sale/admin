@@ -1,17 +1,11 @@
 import {
   Box,
-  Button,
-  Card,
-  CardContent,
-  TextField,
-  InputAdornment,
-  SvgIcon
+  Button
 } from '@material-ui/core'
-import { Search as SearchIcon } from 'react-feather'
 import { useEffect, useState } from 'react'
-import { removeProducts, getProducts, searchProducts } from '../../redux/actions/products'
+import { removeProducts, getProducts } from '../../redux/actions/products'
 import { Link } from 'react-router-dom'
-import ListImporter from '../../Tools/ListImporter'
+// import ListImporter from '../../Tools/ListImporter'
 
 const ProductListToolbar = ({ eventHandler, setEventHandler, props, allProducts, dispatch }) => {
   const [deleter, setDeleter] = useState([])
@@ -28,48 +22,8 @@ const ProductListToolbar = ({ eventHandler, setEventHandler, props, allProducts,
     dispatch(getProducts())
   }, [dispatch, deleter])
 
-  const handleSearch = (e) => {
-    dispatch(searchProducts(e.target.value))
-  }
-
   return (
     <Box {...props}>
-      <Box
-        sx={{ mt: 0 }}
-      >
-        <Card>
-          <CardContent>
-            <Box sx={{ maxWidth: 500, margin: 'auto' }}>
-              <TextField
-                fullWidth
-                style={{
-                  marginTop: '8px'
-                }}
-
-                InputProps={
-                            {
-                              startAdornment: (
-                                <InputAdornment
-                                  position='start'
-                                >
-                                  <SvgIcon
-                                    fontSize='small' 
-                                    color='action'
-                                  >
-                                    <SearchIcon />
-                                  </SvgIcon>
-                                </InputAdornment>
-                              )
-                            }
-                        }
-                onChange={(e) => handleSearch(e)}
-                placeholder='Search Product'
-                variant='outlined'
-              />
-            </Box>
-          </CardContent>
-        </Card>
-      </Box>
       <Box
         sx={{
           display: 'flex',

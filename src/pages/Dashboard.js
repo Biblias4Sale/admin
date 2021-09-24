@@ -4,8 +4,6 @@ import Budget from '../components/dashboard/Budget'
 import LatestOrders from '../components/dashboard/LatestOrders'
 import LatestProducts from '../components/dashboard/LatestProducts'
 import TotalCustomers from '../components/dashboard/TotalCustomers'
-import TotalProfit from '../components/dashboard/TotalProfit'
-import TasksProgress from '../components/dashboard/TasksProgress'
 import { useEffect } from 'react'
 import { FakeContext } from 'src/FakeContext'
 import { getPaymentsData } from 'src/redux/actions/payments'
@@ -49,15 +47,6 @@ const Dashboard = () => {
               xl={3}
               xs={12}
             >
-              <TasksProgress sx={{ height: '100%' }} />
-            </Grid>
-            <Grid
-              item
-              lg={6}
-              sm={6}
-              xl={3}
-              xs={12}
-            >
               <Budget sx={{ height: '100%' }} />
             </Grid>
             <Grid
@@ -68,15 +57,6 @@ const Dashboard = () => {
               xs={12}
             >
               <TotalCustomers sx={{ height: '100%' }} />
-            </Grid>
-            <Grid
-              item
-              lg={6}
-              sm={6}
-              xl={3}
-              xs={12}
-            >
-              <TotalProfit sx={{ height: '100%' }} />
             </Grid>
 
             <Grid

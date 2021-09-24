@@ -7,7 +7,8 @@ import {
   DELETE_PRODUCTS,
   PUT_PRODUCT,
   IMPORT_PRODUCTS,
-  SEARCH_PRODUCTS
+  SEARCH_PRODUCTS,
+  SET_SEARCH_STRING
 } from '../constants'
 import axios from 'axios'
 import { ApiURL } from '../../config'
@@ -26,21 +27,9 @@ export const getProducts = (products) => async (dispatch) => {
 export const getProductsDetails = (id) => async (dispatch) => {
   try {
     const product = await axios.get(`${ApiURL}/products/detail/${id}`, { withCredentials: true })
-    // const formatedDetails = {
-    //   id: product.data.id,
-    //   img: product.data.img,
-    //   brand: product.data.brand,
-    //   model: product.data.model,
-    //   category: product.data.subCategory.category.name,
-    //   subCategory: product.data.subCategory.name,
-    //   price: product.data.price,
-    //   discount: product.data.discount,
-    //   description: product.data.description,
-    //   points: product.data.points
-    // }
     return dispatch({
       type: GET_PRODUCT_DETAIL,
-      payload: product
+      payload: product.data
     })
   } catch (error) {
     console.log(error)
@@ -87,8 +76,8 @@ export const editProducts = (editedProduct) => async (dispatch) => {
   const product = await axios.put(`${ApiURL}/products/edit`, editedProduct, { withCredentials: true })
   const formatedDetails = {
     id: product.data.id,
-    img: product.data.img,
-    brand: product.data.brand,
+    img: product.data.img[0],
+    brand: product.data.brand.name,
     model: product.data.model,
     category: product.data.subCategory.category.name,
     subCategory: product.data.subCategory.name,
@@ -104,8 +93,6 @@ export const editProducts = (editedProduct) => async (dispatch) => {
 }
 
 export const importProducts = (formData) => async (dispatch) => {
-  console.log('actions')
-  console.log(formData)
   const response = await axios.post(`${ApiURL}/products/csvadd`,
     formData,
     { withCredentials: true },
@@ -123,10 +110,15 @@ export const importProducts = (formData) => async (dispatch) => {
 }
 
 export const searchProducts = (search) => async (dispatch) => {
-  console.log(search)
+  return {
+    type: SEARCH_PRODUCTS,
+    payload: search
+  }
+}
 
-  // return dispatch({
-  //   type: SEARCH_PRODUCTS,
-  //   payload: filtered
-  // })
+export const setSearchString = (searchString) => {
+  return {
+    type: SET_SEARCH_STRING,
+    payload: searchString
+  }
 }

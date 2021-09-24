@@ -7,7 +7,7 @@ const CustomerList = () => (
 
   <>
     <Helmet>
-      <title>Customers | Material Kit</title>
+      <title>Noiloan | Admin</title>
     </Helmet>
     <Box
       sx={{

@@ -23,7 +23,7 @@ const ProductListResults = ({ dispatch, allProducts, eventHandler, setEventHandl
   const [page, setPage] = useState(0)
   const [products, setProducts] = useState([])
   const [limit, setLimit] = useState(50)
-  const [order, setOrder] = useState({})
+
 
   if (!selectedProductIds.length && selectedProductIds !== eventHandler.selectedProducts) {
     setEventHandler({ ...eventHandler, deleteProductsBtn: false, selectedProducts: selectedProductIds })
@@ -85,7 +85,17 @@ const ProductListResults = ({ dispatch, allProducts, eventHandler, setEventHandl
   }
 
   const changeOrder = (e) => {
-
+    if (e.value === 'desc') {
+      return e.sort(function (a, b) {
+        if (a.name < b.name) {
+          return 1
+        }
+        if (a.name > b.name) {
+          return -1
+        }
+        return 0
+      })
+    }
   }
 
   return (
@@ -117,7 +127,7 @@ const ProductListResults = ({ dispatch, allProducts, eventHandler, setEventHandl
                 >
                   <Button>
                     Marca
-                    <ArrowDropDownIcon />
+
                   </Button>
 
                 </TableCell>
@@ -128,7 +138,6 @@ const ProductListResults = ({ dispatch, allProducts, eventHandler, setEventHandl
                     value='desc'
                   >
                     Modelo
-                    <ArrowDropUpIcon />
                   </Button>
                 </TableCell>
                 <TableCell>
@@ -138,7 +147,7 @@ const ProductListResults = ({ dispatch, allProducts, eventHandler, setEventHandl
                     value='desc'
                   >
                     Categoria
-                    <ArrowDropDownIcon />
+
                   </Button>
                 </TableCell>
                 <TableCell>
@@ -148,7 +157,7 @@ const ProductListResults = ({ dispatch, allProducts, eventHandler, setEventHandl
                     value='desc'
                   >
                     Subcategoria
-                    <ArrowDropDownIcon />
+
                   </Button>
                 </TableCell>
                 <TableCell>
@@ -158,7 +167,7 @@ const ProductListResults = ({ dispatch, allProducts, eventHandler, setEventHandl
                     value='desc'
                   >
                     Stock
-                    <ArrowDropDownIcon />
+
                   </Button>
                 </TableCell>
                 <TableCell>
@@ -168,7 +177,7 @@ const ProductListResults = ({ dispatch, allProducts, eventHandler, setEventHandl
                     value='desc'
                   >
                     Precio
-                    <ArrowDropDownIcon />
+
                   </Button>
                 </TableCell>
               </TableRow>

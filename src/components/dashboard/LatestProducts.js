@@ -17,13 +17,12 @@ import { NavLink } from 'react-router-dom'
 
 const LatestProducts = () => {
   const products = useSelector(store => store.products.allProducts)
-  console.log(products)
   const all = products?.sort((a, b) => { return b.id - a.id }).slice(0, 5)
   return (
 
     <Card>
       <CardHeader
-        subtitle={`${products.length} in total`}
+        subtitle={`${products.length} en total`}
         title='Últimos productos agregados'
       />
       <Divider />

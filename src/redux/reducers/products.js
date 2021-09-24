@@ -1,18 +1,23 @@
-import {  GET_ALL_PRODUCTS, 
-          GET_PRODUCT_DETAIL, 
-          GET_BESTS, 
-          POST_PRODUCT, 
-          DELETE_PRODUCTS, 
-          PUT_PRODUCT, 
-          DELETE_DETAILS, 
-          IMPORT_PRODUCTS,
-          SEARCH_PRODUCTS } from '../constants'
+import {
+  GET_ALL_PRODUCTS,
+  GET_PRODUCT_DETAIL,
+  GET_BESTS,
+  POST_PRODUCT,
+  DELETE_PRODUCTS,
+  PUT_PRODUCT,
+  DELETE_DETAILS,
+  IMPORT_PRODUCTS,
+  SEARCH_PRODUCTS,
+  SET_SEARCH_STRING
+} from '../constants'
 
 const initialState = {
   allProducts: [],
   productDetail: {},
   newProduct: {},
-  messages: {}
+  messages: {},
+  searchResult: [],
+  searchString: ''
 }
 
 const products = (state = initialState, action) => {
@@ -57,11 +62,12 @@ const products = (state = initialState, action) => {
         ...state,
         allProducts: action.payload
       }
-      case SEARCH_PRODUCTS:
-        return {
-        ...state, 
-        allProducts: action.payload
-      }
+    case SEARCH_PRODUCTS:
+      return { ...state, searchResult: action.payload }
+
+    case SET_SEARCH_STRING:
+      return { ...state, searchString: action.payload }
+
     default:
       return state
   }
