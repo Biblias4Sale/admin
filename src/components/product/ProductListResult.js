@@ -1,5 +1,7 @@
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
+
 import {
   Avatar,
   Box,
@@ -126,7 +128,7 @@ const ProductListResults = ({ dispatch, allProducts, eventHandler, setEventHandl
                     value='desc'
                   >
                     Modelo
-                    <ArrowDropDownIcon />
+                    <ArrowDropUpIcon />
                   </Button>
                 </TableCell>
                 <TableCell>

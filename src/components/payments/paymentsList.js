@@ -38,7 +38,12 @@ const PaymentList = () => {
       return userData
     })
     let newArr = await Promise.all(dataArr)
+    let arr = newArr.map((a) => a.cartId)
+    let filteredIds = new Set(arr)
+    let x = [...filteredIds]
+    console.log(x)
     setData(newArr)
+    console.log(newArr)
   }, [dispatch])
 
   return (
