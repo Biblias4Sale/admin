@@ -68,9 +68,6 @@ const PaymentList = () => {
                 <TableCell>
                   estado de compra
                 </TableCell>
-                <TableCell style={{ textAlign: 'center' }}>
-                  Actions
-                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -96,9 +93,6 @@ const PaymentList = () => {
                 </TableCell>
                 <TableCell>
                   {d.status}
-                </TableCell>
-                <TableCell style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Button key={d.cartId}>guardar</Button>
                 </TableCell>
               </TableRow>
               )})}
