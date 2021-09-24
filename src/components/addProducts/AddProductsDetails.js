@@ -29,56 +29,56 @@ const AddPorductsDetails = ({
   setImageUrl,
   encodedImgs,
   setEncodedImgs,
-  imgPreview, 
+  imgPreview,
   setImgPreview
 }) => {
-const [localUrl, setLocalUrl] = useState([])
-const [flag, setFlag] = useState(0)
-const [key, setKey] = useState(0)
- useEffect(() => {
-   if(imageUrl !== []){
-     setLocalUrl(imageUrl)
+  const [localUrl, setLocalUrl] = useState([])
+  const [flag, setFlag] = useState(0)
+  const [key, setKey] = useState(0)
+  useEffect(() => {
+    if (imageUrl !== []) {
+      setLocalUrl(imageUrl)
+    }
+  }, [imageUrl])
 
-   }
- },[imageUrl])
-
- useEffect(() => {
-  if(flag === 1){
-    setProductInfo({...productInfo, img: encodedImgs})
-    setFlag(2)
-  }
-  if( flag === 2 
-      && productInfo.category !== "-" 
-      && productInfo.subCategory !== "-" 
-      && productInfo.brand !=="-"){
-    dispatch(addProducts(productInfo))
-    setFlag(3)
-  }
-  if(flag === 3){
-    setKey(key + 1)
-    setProductInfo({
-      brand: '',
-      model: '',
-      category: '',
-      subCategory: '',
-      price: '',
-      discount: '',
-      description: '',
-      img: [],
-    })
-    setSelectedFiles([])
-    setEncodedImgs([])
-    setImageUrl([])   
-    setFlag(0)
-  }
-  console.log(encodedImgs, ' en details')
- },[flag, encodedImgs])
-  const handleChange = (event) => {
+  useEffect(() => {
+    if (flag === 1) {
+      setProductInfo({ ...productInfo, img: encodedImgs })
+      setFlag(2)
+    }
+    if (flag === 2 &&
+      productInfo.category !== '-' &&
+      productInfo.subCategory !== '-' &&
+      productInfo.brand !== '-') {
+      dispatch(addProducts(productInfo))
+      setFlag(3)
+    }
+    if (flag === 3) {
+      setKey(key + 1)
       setProductInfo({
-        ...productInfo,
-        [event.target.name]: event.target.value,
+        brand: '',
+        model: '',
+        category: '',
+        subCategory: '',
+        price: '',
+        discount: '',
+        description: '',
+        img: []
       })
-      console.log(productInfo)    
+      setSelectedFiles([])
+      setEncodedImgs([])
+      setImageUrl([])
+      setFlag(0)
+    }
+    console.log(encodedImgs, ' en details')
+  }, [flag, encodedImgs])
+
+  const handleChange = (event) => {
+    setProductInfo({
+      ...productInfo,
+      [event.target.name]: event.target.value
+    })
+    console.log(productInfo)
   }
 
   useEffect(() => {
@@ -91,7 +91,6 @@ const [key, setKey] = useState(0)
     e.preventDefault()
     setFlag(1)
     // dispatch(addProducts(productInfo))
-
   }
 
   const catchImgId = (e) => {
@@ -134,7 +133,7 @@ const [key, setKey] = useState(0)
                   value={productInfo.brand}
                   variant='outlined'
                 >
-                <option key="0" value="-">Sleccione una marca</option>
+                  <option key='0' value='-'>Sleccione una marca</option>
                   {allBrands && allBrands.sort().map((brand) => (
                     <option
                       key={brand.id}
@@ -177,7 +176,7 @@ const [key, setKey] = useState(0)
                   value={productInfo.category}
                   variant='outlined'
                 >
-                <option key="0" value="-">Sleccione una categoria</option>
+                  <option key='0' value='-'>Sleccione una categoria</option>
                   {allCategories && allCategories.sort().map((category, index) => (
                     <option
                       key={index}
@@ -204,7 +203,7 @@ const [key, setKey] = useState(0)
                   value={productInfo.subCategory}
                   variant='outlined'
                 >
-                <option key="0" value="-">Sleccione una categoria</option>
+                  <option key='0' value='-'>Sleccione una categoria</option>
                   {subCategoriesOf && subCategoriesOf.sort().map((subCat, index) => (
                     <option
                       key={index}
@@ -275,34 +274,33 @@ const [key, setKey] = useState(0)
                       display: 'flex',
                       flexWrap: 'no-wrap',
                       flexDirection: 'row',
-                      overflowX: 'scroll',
+                      overflowX: 'scroll'
                     }}
                   >
 
                     {(localUrl && localUrl)
-                    ? (localUrl.map((local, index) => (
-                      <ImageListItem>
-                        <img style={{
-                          width: '100px',
-                          height: '100px' }}
-                          src={local}
-                          onClick={(e) => catchImgId(e)}
-                          id={index}
-                        />
-                      </ImageListItem>
+                      ? (localUrl.map((local, index) => (
+                        <ImageListItem>
+                          <img
+                            style={{
+                            width: '100px',
+                            height: '100px'
+                          }}
+                            src={local}
+                            onClick={(e) => catchImgId(e)}
+                            id={index}
+                          />
+                        </ImageListItem>
 
-                    )))
+                        )))
 
-                    : (
-                      <ImageListItem>
-                        <img style={{ width: '100px', height: '100px' }} src={imageUrl}/>
-                      </ImageListItem>
-                    )
-                    }
+                      : (
+                        <ImageListItem>
+                          <img style={{ width: '100px', height: '100px' }} src={imageUrl} />
+                        </ImageListItem>
+                        )}
 
-
-
-                    </ImageList>
+                  </ImageList>
                 </Box>
               </Grid>
             </Grid>
@@ -315,12 +313,13 @@ const [key, setKey] = useState(0)
               p: 2
             }}
           >
-            <FileUploader selectedFiles={selectedFiles}
-                          setSelectedFiles={setSelectedFiles}
-                          imageUrl={imageUrl}
-                          setImageUrl={setImageUrl}
-                          encodedImgs={encodedImgs}
-                          setEncodedImgs={setEncodedImgs}
+            <FileUploader
+              selectedFiles={selectedFiles}
+              setSelectedFiles={setSelectedFiles}
+              imageUrl={imageUrl}
+              setImageUrl={setImageUrl}
+              encodedImgs={encodedImgs}
+              setEncodedImgs={setEncodedImgs}
             />
             <Button
               color='primary'

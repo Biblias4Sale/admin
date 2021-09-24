@@ -8,7 +8,7 @@ import TotalProfit from '../components/dashboard/TotalProfit'
 import TasksProgress from '../components/dashboard/TasksProgress'
 import { useEffect } from 'react'
 import { FakeContext } from 'src/FakeContext'
-import { getAllPayments } from 'src/redux/actions/getPayments'
+import { getPaymentsData } from 'src/redux/actions/payments'
 import { PaymentModal } from '../components/dashboard/PaymentModal'
 
 const Dashboard = () => {
@@ -22,7 +22,7 @@ const Dashboard = () => {
   } = FakeContext()
 
   useEffect(() => {
-    dispatch(getAllPayments())
+    dispatch(getPaymentsData())
   }, [])
 
   return (
@@ -90,11 +90,11 @@ const Dashboard = () => {
                 allPayments={allPayments}
                 handleOpen={handleOpen}
               />
-              <PaymentModal
+              {/* <PaymentModal
                 open={open}
                 handleClose={handleClose}
                 paymentByID={paymentByID}
-              />
+              /> */}
             </Grid>
 
             <Grid

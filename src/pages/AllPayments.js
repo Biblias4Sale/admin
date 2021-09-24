@@ -1,17 +1,17 @@
 import { Helmet } from 'react-helmet'
 import { Box, Container } from '@material-ui/core'
-import { FakeContext } from 'src/FakeContext'
+// import { FakeContext } from 'src/FakeContext'
 import PaymentList from 'src/components/payments/paymentsList'
-import { PaymentModal } from 'src/components/dashboard/PaymentModal'
+// import { PaymentModal } from 'src/components/dashboard/PaymentModal'
 
 const AllPayments = () => {
-  const {
-    allPayments,
-    paymentByID,
-    open,
-    handleOpen,
-    handleClose
-  } = FakeContext()
+  // const {
+  //   allPayments,
+  //   paymentByID,
+  //   open,
+  //   handleOpen,
+  //   handleClose
+  // } = FakeContext()
   return (
     <>
       <Helmet>
@@ -26,14 +26,14 @@ const AllPayments = () => {
       >
         <Container maxWidth={false}>
           <PaymentList
-            allPayments={allPayments}
-            handleOpen={handleOpen}
+            // allPayments={allPayments}
+            // handleOpen={handleOpen}
           />
-          <PaymentModal
+          {/* <PaymentModal
             open={open}
             handleClose={handleClose}
             paymentByID={paymentByID}
-          />
+          /> */}
         </Container>
       </Box>
     </>

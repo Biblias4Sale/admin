@@ -33,7 +33,7 @@ const SettingsNotifications = () => {
   useEffect(() => {
     dispatch(getConfigs())
     setOptions({ ...options, configs })
-  }, [dispatch, configs])
+  }, [dispatch])
 
   const handleChange = (event) => {
     setOptions({ ...options, [event.target.name]: event.target.checked })
